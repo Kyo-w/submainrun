@@ -29,12 +29,11 @@ class Config():
                     Config.__resultdir = os.getcwd()
                     Config.__resultname = ""
                     Config.__pathsep = "/"
-                    
+
                     Config.pathSep(Config.__instance)
             return Config.__instance
 
     def getSystemType(self):
-        
         """
             操作系统的平台
         """
@@ -48,7 +47,7 @@ class Config():
 
     def getPlatsignal(self):
         return self.__plat
-        
+
     def pathSep(self):
         """
             确定路径是linux的'/'路径分隔符还是windows的'\'路径分隔符
@@ -77,12 +76,12 @@ class Config():
             返回存放结果集的目录
         """
         self.__resultdir = dirname
-    
-    def loadtempfile(self,args):
+
+    def loadtempfile(self, args):
         ''' 
             重新指定结果集的目录和文件名
         '''
-        self.__resultdir =args.savedir
+        self.__resultdir = args.savedir
         self.__resultname = args.savefile
 
     def getpathsep(self):

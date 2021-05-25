@@ -46,7 +46,7 @@ class Arg():
         self.__arg.add_argument(
             '-q', "--quite", metavar="not print log", help="不打印日志", default="N")
         self.__arg.add_argument('-t', "--thread", metavar="Number of threads",
-                                help="线程数(提供比-s更精确的控制),使用-t时覆盖-s作用域",type=int ,default=0)
+                                help="线程数(提供比-s更精确的控制),使用-t时覆盖-s作用域", type=int, default=0)
 
     def returnArgsList(self):
         return self.__argslist
@@ -81,7 +81,7 @@ class LoadController():
         """ 
             创建结果集的文件
         """
-        filepath = dir + sep + name
+        filepath = dir + sep + name + ".csv"
         if not os.access(filepath, os.F_OK):
             with open(filepath, 'a+') as fp:
                 pass
@@ -123,7 +123,7 @@ class LoadController():
         list1 = []
         for i in range(0, self.args.speed):
             list1.append(threading.Thread(target=requestThread,
-                         args=(dnsimp,self.args.speed, self.cmd,self.args.quite)))
+                         args=(dnsimp, self.args.speed, self.cmd, self.args.quite)))
         for i in list1:
             i.start()
             i.join()
@@ -133,13 +133,13 @@ class LoadController():
         return dnsimp.getFindDict(), dnsimp.logresult()
 
 
-def requestThread(dnsimp,speed, cmd, flag):
+def requestThread(dnsimp, speed, cmd, flag):
     ''' 
         线程奔跑：需要带入dnsimp类对象
     '''
     while not dnsimp.domainqueues.empty():
         temp = dnsimp.domainqueues.get()
-        dnsimp.sendRequest(temp,speed, cmd, flag)
+        dnsimp.sendRequest(temp, speed, cmd, flag)
 
 
 def save_csv(fd, msg_dict):
@@ -170,7 +170,7 @@ if __name__ == '__main__':
     else:
         argslist.quite = False
     if argslist.thread != 0:
-            argslist.speed = int(argslist.thread)
+        argslist.speed = int(argslist.thread)
     else:
         if argslist.speed == "low":
             argslist.speed = 5
